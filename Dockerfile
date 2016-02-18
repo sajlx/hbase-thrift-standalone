@@ -8,4 +8,3 @@ VOLUME /opt/hbase/bin/initial_script
 EXPOSE 9090
 
 CMD /opt/hbase/bin/start-pseudo-distributed-thrift.sh
-ENTRYPOINT /opt/hbase/bin/start-pseudo-distributed-thrift.sh
