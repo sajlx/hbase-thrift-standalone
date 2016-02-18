@@ -5,16 +5,22 @@
 
 /opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
 
-# /opt/hbase/bin/hbase shell /opt/hbase/bin/create_table_hbase.txt
-
-
 DIR=/opt/hbase/bin/initial_script
 TMP_ALL=/*
 
 if [ "$(ls -A $DIR)" ];
     then
         echo "$DIR is NOT Empty"
-        sleep 10
+        echo 'Checking master status on port 60010 '
+        curl localhost:60010
+        rc=$?
+        while [[ $rc != 0 ]]
+            do
+                echo 'Checking master status on port 60010 result $?'
+                curl localhost:60010
+                rc=$?
+            done
+        echo 'GOOD checking master status on port 60010 $?'
     else
         echo "$DIR is Empty"
 fi
