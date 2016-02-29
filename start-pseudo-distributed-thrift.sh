@@ -14,7 +14,7 @@ while [[ $rc != 0 ]]
     done
 echo 'GOOD checking master status on port 60010 $rc'
 
-/opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
+/opt/hbase/bin/hbase thrift -k 3 -m 2 -w 5 start > thrift.log 2>&1 &
 
 DIR=/opt/hbase/bin/initial_script
 TMP_ALL=/*
