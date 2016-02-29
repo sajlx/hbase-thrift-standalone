@@ -3,6 +3,8 @@
 
 /opt/hbase/bin/hbase master start --localRegionServers=0 > master.log 2>&1 &
 
+sleep 10
+
 /opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
 
 DIR=/opt/hbase/bin/initial_script
