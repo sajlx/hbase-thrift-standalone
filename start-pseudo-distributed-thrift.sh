@@ -1,6 +1,9 @@
-/opt/hbase/bin/hbase zookeeper > logzoo.log 2>&1 &
-/opt/hbase/bin/hbase master start --localRegionServers=0 > master.log 2>&1 &
-/opt/hbase/bin/hbase regionserver start > logregion.log 2>&1 &
+
+sh /opt/hbase/bin/hbase-daemon.sh autorestart zookeeper
+sh /opt/hbase/bin/start-hbase.sh
+# /opt/hbase/bin/hbase zookeeper > logzoo.log 2>&1 &
+# /opt/hbase/bin/hbase master start --localRegionServers=0 > master.log 2>&1 &
+# /opt/hbase/bin/hbase regionserver start > logregion.log 2>&1 &
 
 echo 'Checking master status on port 60010 '
 curl localhost:60010
@@ -29,7 +32,9 @@ if [ "$(ls -A $DIR)" ];
         echo "$DIR is Empty"
 fi
 
-/opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
+
+sh /opt/hbase/bin/hbase-daemon.sh autorestart thrift
+# /opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
 
 # don't exit from container after script ends
 while :; do
