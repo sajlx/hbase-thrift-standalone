@@ -4,7 +4,7 @@ MAINTAINER ivan Bettarini <ivan.bettarini@gmail.com>
 ADD hbase-site.xml /opt/hbase/conf/hbase-site.xml
 
 ADD start-pseudo-distributed-thrift.sh /opt/hbase/bin/start-pseudo-distributed-thrift.sh
-RUN yum install -y nmap
+# RUN yum install -y nmap
 RUN yum install -y nc
 RUN chmod +x /opt/hbase/bin/start-pseudo-distributed-thrift.sh
 RUN mkdir /opt/hbase/bin/initial_script
