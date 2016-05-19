@@ -37,6 +37,4 @@ sh /opt/hbase/bin/hbase-daemon.sh autorestart thrift
 # /opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
 
 # don't exit from container after script ends
-while :; do
-  sleep 300
-done
+while true; do nc -l -p 12345 -c 'echo "ok"' || break; done

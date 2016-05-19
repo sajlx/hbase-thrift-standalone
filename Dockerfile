@@ -10,5 +10,6 @@ RUN mkdir /opt/hbase/bin/initial_script
 VOLUME /opt/hbase/bin/initial_script
 
 EXPOSE 9090
+EXPOSE 12345
 
 CMD /opt/hbase/bin/start-pseudo-distributed-thrift.sh
