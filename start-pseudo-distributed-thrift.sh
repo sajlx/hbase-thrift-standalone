@@ -1,6 +1,6 @@
 /usr/bin/supervisord -c /opt/hbase/supervisor.conf
 
-echo 'Waiting for the HBase master to start on port 60010'
+echo "Waiting for the HBase master to start on port 60010"
 curl localhost:60010 &> /dev/null
 rc=$?
 while [[ $rc != 0 ]]
@@ -9,7 +9,7 @@ while [[ $rc != 0 ]]
         rc=$?
         sleep 1
     done
-echo 'Master has started on port 60010'
+echo "Master has started on port 60010"
 
 DIR=/opt/hbase/bin/initial_script
 TMP_ALL=/*
