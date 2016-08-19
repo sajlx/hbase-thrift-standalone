@@ -1,20 +1,15 @@
+/usr/bin/supervisord -c /opt/hbase/supervisor.conf
 
-sh /opt/hbase/bin/hbase-daemon.sh autorestart zookeeper
-sh /opt/hbase/bin/start-hbase.sh
-# /opt/hbase/bin/hbase zookeeper > logzoo.log 2>&1 &
-# /opt/hbase/bin/hbase master start --localRegionServers=0 > master.log 2>&1 &
-# /opt/hbase/bin/hbase regionserver start > logregion.log 2>&1 &
-
-echo 'Checking master status on port 60010 '
-curl localhost:60010
+echo 'Waiting for the HBase master to start on port 60010'
+curl localhost:60010 &> /dev/null
 rc=$?
 while [[ $rc != 0 ]]
     do
-        echo 'Checking master status on port 60010 result $rc'
-        curl localhost:60010
+        curl localhost:60010 &> /dev/null
         rc=$?
+        sleep 1
     done
-echo 'GOOD checking master status on port 60010 $rc'
+echo 'Master has started on port 60010'
 
 DIR=/opt/hbase/bin/initial_script
 TMP_ALL=/*
@@ -32,14 +27,6 @@ if [ "$(ls -A $DIR)" ];
         echo "$DIR is Empty"
 fi
 
-
-sh /opt/hbase/bin/hbase-daemon.sh autorestart thrift
-# /opt/hbase/bin/hbase thrift start > thrift.log 2>&1 &
-/opt/hbase/bin/hbase rest start > /opt/hbase/rest.log 2>&1 &
-
 # don't exit from container after script ends
 # while true; do nc -l -p 12345 <<< "ok" || break; done
 python -m SimpleHTTPServer 12345
-# while :; do
-#     sleep 300
-# done
